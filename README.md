@@ -18,7 +18,6 @@ Genius houses a large library of annotated lyrics, complete with genre tags. Whi
 After repeating this process many times, we will have a database of approximately 100,000 songs with their genres, lyrics and popularity metrics. 
 
 ### Data Cleanup:
-[Data Cleaning Notebook](Data Cleanup/Data Cleaning.ipynb.md)
 Once the complete dataframe of songs were obtained, in order to analyze the songs based on their lyrics, we needed to remove those that were either non-english or were simply instrumentals. Our model will be based off of english words, and including songs that either contain none nor have any actual lyrics will obviously affect the outcome. 
 To check for english speaking songs, we used the package “Pychant” to check the lyrics within each song and got rid of those that were not english. This was done by using a for loop and using the lyrics column for each song to detect any different languages used. 
 To check for instrumental songs, it is noted that on Spotify, any instrumental songs have their titles noted as, “Instrumental”. Similarly for checking a song’s language, we use a for loop and check the title within each song to see if it contains the word, “Instrumental”. Not only that, but we use a try block for each song to see if the lyrics feature any words or not, since a song may or may not contain any phrases or words whatsoever, which is what we want to avoid.
@@ -26,7 +25,7 @@ After that, we used str.replace() to help remove any unwanted punctuation marks 
 (you can at some point talk about limiting the training load on the embedding)
 Once the song and its data have been gathered, we will filter the songs to eliminate non-English songs and remove instrumental tracks. We are limiting our data to English lyrics to minimize the breadth of our final corpus for embedding training.
 
-### Exploratory Analysis:
+### Exploratory Analysis: NEEDS EDIT
 Some Exploratory Statistics include:
 - Total number of unique words: 118,466
 - Total number of genre/genre combinations: 4,369
@@ -35,3 +34,5 @@ Some Exploratory Statistics include:
 - Sample list of genre/genre combinations: ['UK Rap', 'UK', 'Rap Genius'], ['Heavy Metal', 'Thrash Metal', 'Rock Genius', 'Death Metal'], ['Atlanta', 'Trap', 'Rap Genius'], etc..
 - Scatter plot of listens by hotness:
 
+### Corpus and Embeddings:
+[Embeddings Script](Embeddings/embedding(2).ipynb)
