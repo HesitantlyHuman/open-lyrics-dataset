@@ -18,7 +18,7 @@ Genius houses a large library of annotated lyrics, complete with genre tags. Whi
 After repeating this process many times, we will have a database of approximately 100,000 songs with their genres, lyrics and popularity metrics. 
 
 ### Data Cleanup:
-[Data Cleaning Notebook](Data Cleanup/Data Cleaning.ipynb)
+[Data Cleaning Notebook](Data Cleanup/Data Cleaning.ipynb.md)
 Once the complete dataframe of songs were obtained, in order to analyze the songs based on their lyrics, we needed to remove those that were either non-english or were simply instrumentals. Our model will be based off of english words, and including songs that either contain none nor have any actual lyrics will obviously affect the outcome. 
 To check for english speaking songs, we used the package “Pychant” to check the lyrics within each song and got rid of those that were not english. This was done by using a for loop and using the lyrics column for each song to detect any different languages used. 
 To check for instrumental songs, it is noted that on Spotify, any instrumental songs have their titles noted as, “Instrumental”. Similarly for checking a song’s language, we use a for loop and check the title within each song to see if it contains the word, “Instrumental”. Not only that, but we use a try block for each song to see if the lyrics feature any words or not, since a song may or may not contain any phrases or words whatsoever, which is what we want to avoid.
