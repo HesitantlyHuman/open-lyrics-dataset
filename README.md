@@ -1,8 +1,8 @@
 # Lyrical Analysis By Popularity
 
 ### Contributors:
-Tanner Sims: u1159642 tannerjeffreysims@gmail.com
-Ethan Burrows: u1102916 ethandburrows@gmail.com
+Tanner Sims: u1159642 tannerjeffreysims@gmail.com,
+Ethan Burrows: u1102916 ethandburrows@gmail.com,
 Lass Omar: u1179231 u1179231@utah.edu
 
 
@@ -28,7 +28,8 @@ Once the song and its data have been gathered, we will filter the songs to elimi
 ### Exploratory Analysis:
 Some Exploratory Statistics include:
 - Total number of unique words: 118,466
-- Total number of genre/genre combinations: 4369
-- Total number of rejected music songs: 14391
+- Total number of genre/genre combinations: 4,369
+- Total number of rejected music songs: 14,391
 - Total number of words in the corpus: 9,591,976
-- Sample list of genre/genre combinations:
+- Sample list of genre/genre combinations: ['UK Rap', 'UK', 'Rap Genius'], ['Heavy Metal', 'Thrash Metal', 'Rock Genius', 'Death Metal'], ['Atlanta', 'Trap', 'Rap Genius'], etc..
+
