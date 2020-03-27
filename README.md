@@ -11,7 +11,7 @@ Lass Omar: u1179231 u1179231@utah.edu
 ### Project Intro:
 This project demonstrates a lower bound for the effect of lyrics on popularity (number of spotify listens) for a given song. To achieve this we utilized a transformer based NLP model on fine tuned word embeddings over a 9591976 word corpus.
 
-### Data Aquisition:
+### Data Aquisition: NEEDS EDIT
 To collect the data required for our analysis, we have been using two sources: Spotify and Genius. From Spotify, we collected metrics about a song’s performance in the public sphere. As the service is very popular and widely used, we expected that the users on this platform are representative of the music consumer population as a whole. While Spotify is the best source for this data, we do recognize that the age of Spotify users is heavily skewed towards young people, and that young people will engage primarily with more recent music. 
 Genius houses a large library of annotated lyrics, complete with genre tags. While the breadth of songs held on Genius is quite large (25 million) it is not as expansive as the Spotify library (30 million). We expected that most songs which can be found on Genius are also on the Spotify platform, but not necessarily the reverse. This ended up being the case on a variety of songs (14391). Therefore we will use Genius as our primary source of data.
 (Update this to reflect the true process) The process will proceed as follows: First, we will select a song at random from all songs on Genius, and collect the song title, lyrics, and genres labels. Next, using the Genius API, we will get the Spotify song url, and proceed to collect the number of listens, and the Spotify hotness (a time weighted listens value). 
@@ -25,3 +25,10 @@ After that, we used str.replace() to help remove any unwanted punctuation marks 
 (you can at some point talk about limiting the training load on the embedding)
 Once the song and its data have been gathered, we will filter the songs to eliminate non-English songs and remove instrumental tracks. We are limiting our data to English lyrics to minimize the breadth of our final corpus for embedding training.
 
+### Exploratory Analysis:
+Some Exploratory Statistics include:
+- Total number of unique words: 118,466
+- Total number of genre/genre combinations: 4369
+- Total number of rejected music songs: 14391
+- Total number of words in the corpus: 9,591,976
+- Sample list of genre/genre combinations:
