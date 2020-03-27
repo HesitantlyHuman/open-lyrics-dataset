@@ -35,4 +35,4 @@ Some Exploratory Statistics include:
 - Scatter plot of listens by hotness:
 
 ### Corpus and Embeddings:
-[Embeddings Script](Embeddings/embedding(2).ipynb)
+[Embeddings Script](Embeddings/embedding (2).ipynb)
