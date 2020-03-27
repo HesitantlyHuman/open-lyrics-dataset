@@ -5,6 +5,7 @@ Tanner Sims: u1159642 tannerjeffreysims@gmail.com
 Ethan Burrows: u1102916 ethandburrows@gmail.com
 Lass Omar: u1179231 u1179231@utah.edu
 
+
 ## Project Progress as of 3/26/20
 
 ### Project Intro:
