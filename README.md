@@ -1,2 +1,3 @@
-# LBP.A
-An analysis of song popularity by NLP on their lyrics.
+# Lyrical Analysis By Popularity
+### Project overview as of 3/26/20
+
