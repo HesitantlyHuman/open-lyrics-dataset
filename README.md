@@ -9,7 +9,7 @@ Lass Omar: u1179231 u1179231@utah.edu
 ## Project Progress as of 3/26/20
 
 ### Project Intro:
-This project demonstrates a lower bound for the effect of lyrics on popularity (number of spotify listens) for a given song. To achieve this we utilized a transformer based NLP model on fine tuned word embeddings over a 9591976 word corpus.
+This project demonstrates a lower bound for the effect of lyrics on popularity (number of spotify listens) for a given song. To achieve this we utilized a transformer based NLP model on fine tuned word embeddings over a 9,591,976 word corpus.
 
 ### Data Aquisition: NEEDS EDIT
 To collect the data required for our analysis, we have been using two sources: Spotify and Genius. From Spotify, we collected metrics about a song’s performance in the public sphere. As the service is very popular and widely used, we expected that the users on this platform are representative of the music consumer population as a whole. While Spotify is the best source for this data, we do recognize that the age of Spotify users is heavily skewed towards young people, and that young people will engage primarily with more recent music. 
@@ -32,4 +32,5 @@ Some Exploratory Statistics include:
 - Total number of rejected music songs: 14,391
 - Total number of words in the corpus: 9,591,976
 - Sample list of genre/genre combinations: ['UK Rap', 'UK', 'Rap Genius'], ['Heavy Metal', 'Thrash Metal', 'Rock Genius', 'Death Metal'], ['Atlanta', 'Trap', 'Rap Genius'], etc..
+- Scatter plot of listens by hotness:
 
