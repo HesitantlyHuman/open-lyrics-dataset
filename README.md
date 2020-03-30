@@ -39,7 +39,7 @@ Similarly for checking a song’s language, we use a for loop and check the titl
 Finally, we needed to remove the words, “Genius” from our genres columns as the various types of music contained the word, “Genius”, which of course sounds really weird to say (R&B Genius doesn’t sound like a popular genre). Thus we once again used str.replace() to remove all the “Genius”’s from the column. Once we had all that done, we had finally cleaned all of the data. This cleaned data script can be found [here](Data%20CleanupData%20Cleaning.ipynb).
 
 ### Exploratory Analysis:
-The dataset we collected contained a total of 120,000 of songs. Once those songs were restricted to only English and non-Instrumental tracks, we were left with a total of 85,000 to serve as training points. The image below shows a sample view of some of the data set:
+The dataset we collected contained a total of 120,000 of songs. Once those songs were restricted to only English and non-Instrumental tracks, we were left with a total of 85,000 to serve as training points.The script for our Exploratory Analysis can be found [here](Data%20Cleanup/Exploratory%20Analysis.ipynb). The image below shows a sample view of some of the data set:
 
 ## Figure 1: Sample View of Data Set
 (image here)
