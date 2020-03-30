@@ -1,6 +1,6 @@
 # Lyrical Analysis By Popularity
 
-### Contributors:
+### Contributors
 
 Tanner Sims: u1159642 tannerjeffreysims@gmail.com 
 <br>
@@ -9,12 +9,12 @@ Ethan Burrows: u1102916 ethandburrows@gmail.com
 Lass Omar: u1179231 u1179231@utah.edu
 <br>
 
-## Introduction:
+## Introduction
 Can AI beat the music industry? The music industry is heavily invested in decoding what makes a popular song, and the ability to predict popularity would be invaluable. But is it doable? What about a song makes it popular. Modern deep learning models may be able to answer that question.
 
 We believe that lyrics are an important aspect of a song, and that a portion of the popularity of a song will stem from the lyrics. Our project uses modern transformer networks and RNNs to predict the popularity of a song, given only the lyrical content. Further, we will attempt to generate specific models which predict the popularity of a song by lyrics within genres. By analyzing genres and their lyrics, we can make predictions about the importance of lyrics within that genre. Finally, we hope to identify good and bad sections within the lyrics using the fully trained models.
 
-### Background:
+### Background
 The past 5 years have seen an explosion in the capabilities of deep networks in the application of natural language tasks. These models account for all of the recent advances in technology like Siri, Amazon’s Alexa, and even Google translate. After moving to deep learning, Google translate saw a sudden and large improvement, especially with difficult to translate or obscure languages.
 
 Recent models, such as Google’s BERT and the Open-AI GPT-2, have consistently passed turing tests over a variety of tasks, demonstrating remarkable flexibility in modeling meaning-dependent problems. In fact, these models are so effective that concerns have even been raised about the ethics of releasing such models publicly due to their ability to mass produce believable fake news and other misinformation. Simply put, these models are rapidly approaching (or exceeding) human performance on all language tasks. 
@@ -22,7 +22,7 @@ Recent models, such as Google’s BERT and the Open-AI GPT-2, have consistently 
 In addition to translation and generative tasks, these models have also been shown to perform well on categorization and regression tasks, such as sentiment analysis or forecasting problems. Because of this success in literature, we expect that such models will perform well predicting the popularity, provided sufficient information within the lyrics text. We hope to see that the model is able to predict song popularity with reasonable accuracy, and we would like to use this measure to analyze songs in order to identify strong and weak lyrical sections.
 
 ## Method
-### Data Aquisition: 
+### Data Aquisition
 Two primary pieces of information are necessary to perform the analysis for each song in the data set: popularity measures and song lyrics. Since we are performing a regression, we need to use a measure that is quantitative and as continuous as possible. Measures like top Billboard position, are out of the question; while we can interpret ordered data like this as quantitative to some extent, there is no information about how much more popular the best song is relative to the second best. In fact, if two songs were released at different times, both of them may have hit the top. With this in mind, we chose to use the number of listens a song has on the streaming platform Spotify, since this data was available to the general public, and is reasonably continuous. Although the number of listens is also not a continuous variable as there can be no fractional values, the numbers tend to be very large, so the data is granular relative to its range. Additionally, it is very unlikely that two songs will have the same number of listens. Further, Spotify also contains a measure called hotness which, (according to their documentation) is proprietary time weighted measure of listens, among other undisclosed values. 
 
 While the Spotify hotness value could have also been a valid choice for a measure of popularity, we had two reservations in using this measure. First, as mentioned previously, the method by which they calculate the hotness is proprietary, so it is unclear if the measure includes factors we wouldn’t want to consider. Second, since hotness is time weighted, the release date of a song is introduced as a confounding factor; release date might not be reflected in lyrical content, so older songs would naturally suffer as a result. Therefore, we believe the model has a greater chance of explaining variability in lyrical content using the number of listens instead. However, despite our misgivings regarding the hotness value, we decided to gather the hotness data on the songs as it is readily accessed and provides an additional data point; including the hotness value allows us to see how well it correlates with the number of listens as a measure of popularity, thus further validating its use.
@@ -33,13 +33,13 @@ Both Genius and Spotify are large companies with expansive databases and service
 
 At this point, with all of the necessary data gathering components in place, we needed a way of ensuring that our data set was representative of the music industry as a whole. Beyond collecting as large a dataset as feasible, we needed to select our data points randomly. Fortunately, Genius uses integers between 0 and 4,000,000 to identify each of the songs in their database. Thus, to select a song, we generated a random Genius ID between 0 and 4,000,000. Using the Genius API, we then found the song and scraped its lyrics and genre. Finally, we used the Spotify search API to find the same song within the Spotify database, and then scrape the number of listens and hotness value. This entire scraping process was performed by a stand-alone python script run in the command line. The procedure is described in detail in the jupyter notebook found [here](Data%20Collection/Project%20Data%20Aquisition.ipynb), and scraping script found [here](Data%20Collection/scrapingscript.py). In total, we collected 118,000 unique song data points. The scraping was done over the course of about 2 weeks, on and off, at a rate of about 1200 songs per hour.
 
-### Data Cleanup:
+### Data Cleanup
 Once the complete dataframe of songs were obtained, in order to analyze the songs based on their lyrics, we needed to remove those that were either non-english or were simply instrumentals. Our model will be based off of english words, and including songs that either contain none nor have any actual lyrics will obviously affect the outcome. To check for english speaking songs, we used the package “langdetect” to check the lyrics within each song and got rid of those that were not english. This was done by using a for loop and using the lyrics column for each song to detect any different languages used. To check for instrumental songs, it is noted that on Spotify, any instrumental songs have their titles noted as, “Instrumental”. 
 Similarly for checking a song’s language, we use a for loop and check the title within each song to see if it contains the word, “Instrumental”. Not only that, but we use a try block for each song to see if the lyrics feature any words or not, since a song may or may not contain any phrases or words whatsoever, which is what we want to avoid. After that, we used str.replace() to help remove any unwanted punctuation marks such as exclamation marks, question marks, periods, and other symbols. Since we're gonna analyze each word within our corpus list of words used within every song, we want words like, “love!” and “love?” to be the same word. 
 
 Finally, we needed to remove the words, “Genius” from our genres columns as the various types of music contained the word, “Genius”, which of course sounds really weird to say (R&B Genius doesn’t sound like a popular genre). Thus we once again used str.replace() to remove all the “Genius”’s from the column. Once we had all that done, we had finally cleaned all of the data. This cleaned data script can be found [here](Data%20CleanupData%20Cleaning.ipynb).
 
-### Exploratory Analysis:
+### Exploratory Analysis
 The dataset we collected contained a total of 120,000 of songs. Once those songs were restricted to only English and non-Instrumental tracks, we were left with a total of 85,000 to serve as training points.The script for our Exploratory Analysis can be found [here](Data%20Cleanup/Exploratory%20Analysis.ipynb). The image below shows a sample view of some of the data set:
 
 #### Figure 1: Sample View of Data Set
@@ -70,14 +70,14 @@ We were hoping that by correlating the number of listens with the hotness value,
 Beyond viewing the various distribution statistics for each portion of our dataset, there are several key pieces of information we need to know about the dataset before performing the main analysis. The models which we will be using (Transformers, LSTMs, etc), are the most adept models currently in use for language tasks. They are able to remember key contextual information for far longer periods of time than any of their predecessors, thus expanding their ability to reference distant dependencies. However, the longer we extend their input, the longer and more difficult training such a network becomes. Thus the last numeric value within our dataset, but certainly not the least important, is song length.
 
 ## Analysis
-### Corpus and Embeddings:
+### Corpus and Embeddings
 While it is standard to use a pre trained embedding without modification in many language tasks, we will be fine tuning our embedding to the dataset. We believe that the use of the English language within songs varies from general use. Within a song, a word can be chosen not just for its meaning, but also its rhythm or cadence. Sometimes a word is chosen with complete disregard for meaning. We expect that fine tuning the embeddings on a corpus of songs will lead to an increased performance in the final model.
 
 There are many ways to generate an embedding, but for our embedding training, we will be using a process called “Continuous Bag of Words,” or CBOW. This method is used by the Word2Vec model, and has resulted in meaningful embeddings within the literature. This model predicts our target word by taking in pairs of context and target words.
 
 To generate the corpus, we will utilize the lyrics from each of the songs within our dataset. Each word must be paired with a unique numeric identifier, which will replace that word within the corpus. It is by using this list that we will select the context and targets for our CBOW model. For our embeddings, we selected a context window size of 3 words in either direction of the target word; this was an important consideration because more context does not necessarily mean more accurate results as words farther away become less related to the target. The script for the embeddings can be found [here](Embeddings/embedding%20(2).ipynb).
 
-### Training:
+### Training
 The primary model which we will utilize is a Transformer network. This network has excelled experimentally at natural language tasks, and trains quickly in parallel processing situations (read GPU). (Decide whether we will be using multi-headed attention or not)
 Additionally, we will train a simple recurrent neural network (RNN) and an long-short-term memory (LSTM) on the dataset, as these will provide a baseline performance for the more complicated Transformer network. The size and parameters of the networks are yet to be determined.
 In addition to the recurrent models, we will perform the regression task using even simpler fully connected models. For those which cannot handle data of variable length, we will attempt padding or truncating the lyrical embeddings.
@@ -86,16 +86,16 @@ Once the models have been trained on the data, we will cross-validate with a tes
 Finally, as an extension of the project, we aim to create the lyric analysis tool described previously. This tool will be able to utilize the general and genre specific models which we will train to identify which lyrics have the greatest negative impact on the final score given by the model. Further, if the genre of the lyrics is one of the five which we select, then a specific model for that genre will be used in place of the general model
 
 ## Limitations
-### Validity:
+### Validity
 While it is tempting to regard the measure of Spotify listens as an absolute indicator of a song’s popularity, we were not able to validate against any other metrics. That is not to say that the number of listens is not related to popularity, but that future investigation would be needed to support this claim thoroughly. Only once this has been given rigorous consideration can the results of our eventual model be interpreted as predictions of popularity.
 
-### Generalization:
+### Generalization
 As with any model, it is hard to measure how well it will generalize outside of the domain under which it was trained. In our case, the domain consists only of songs which were both on Spotify and Genius, and only a subsection of those which were chosen by our scraping process. While randomly choosing our data, and collecting such a large dataset, brings our set towards being a representative sample, it will only be a representative sample of those songs which are on Genius and Spotify. Any predictions which are outside of the domain will be maximally as accurate as we have measured within the domain, but likely far worse.
 
-### Ethical Considerations:
+### Ethical Considerations
 While we are not utilizing private or sensitive data outside of the public sphere, there are still some ethical implications which arise from the application of such techniques to judge the quality of an individual’s effort, especially when the product is art. Such a tool which evaluates the ‘quality’ of lyrical work is not necessarily representative of a song’s artistic merit. If such a tool, geared to increase a raw and speculative metric like the number of Spotify listens, were to be used for measuring the worth of an Artist’s work or career, it might cause unjust devaluing of otherwise capable individuals. If those who manage such artists, such as Record Labels, feel that they should rely on these types of metrics and suggestions entirely, they may require conformity to those standards on the part of the musicians, hampering the diversity of music which they produce.
 
-### Project Progress:
+### Project Progress
 As of the Project Milestone benchmark we have collected and cleaned the data, performed preliminary analysis on the song data and we are currently training the embeddings. Our next steps include choosing our pretrained model, this going to be a transformer and a RNN as stated in the intro of this paper. Below is a project schedule for the rest of the semester:
 
 - March 27th: All data collected,  progress embeddings
