@@ -9,9 +9,7 @@ Ethan Burrows: u1102916 ethandburrows@gmail.com
 Lass Omar: u1179231 u1179231@utah.edu
 <br>
 
-## Project Progress as of 3/26/20
-
-### Introduction:
+## Introduction:
 Can AI beat the music industry? The music industry is heavily invested in decoding what makes a popular song, and the ability to predict popularity would be invaluable. But is it doable? What about a song makes it popular. Modern deep learning models may be able to answer that question.
 
 We believe that lyrics are an important aspect of a song, and that a portion of the popularity of a song will stem from the lyrics. Our project uses modern transformer networks and RNNs to predict the popularity of a song, given only the lyrical content. Further, we will attempt to generate specific models which predict the popularity of a song by lyrics within genres. By analyzing genres and their lyrics, we can make predictions about the importance of lyrics within that genre. Finally, we hope to identify good and bad sections within the lyrics using the fully trained models.
