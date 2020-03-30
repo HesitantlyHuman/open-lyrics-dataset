@@ -3,9 +3,11 @@
 ### Contributors:
 
 Tanner Sims: u1159642 tannerjeffreysims@gmail.com 
+<br>
 Ethan Burrows: u1102916 ethandburrows@gmail.com 
+<br>
 Lass Omar: u1179231 u1179231@utah.edu
-
+<br>
 
 ## Project Progress as of 3/26/20
 
