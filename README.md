@@ -99,9 +99,9 @@ While we are not utilizing private or sensitive data outside of the public spher
 As of the Project Milestone benchmark we have collected and cleaned the data, performed preliminary analysis on the song data and we are currently training the embeddings. Our next steps include choosing our pretrained model, this going to be a transformer and a RNN as stated in the intro of this paper. Below is a project schedule for the rest of the semester:
 
 - March 27th: All data collected,  progress embeddings
-- March 29th - April 1st: Have clean and explored data, complete embeddings, model types chosen.
+- March 29th - April 2st: Have clean and explored data, complete embeddings, model types chosen.
 - April 2nd: Models created and training of the main model in progress.
 - April 9th: Training completed and models evaluated. Begin creating project video.
 - April 19th (Entire Project): *Can identify the problematic areas of lyrics using models
-
+*Flex Goal
 
