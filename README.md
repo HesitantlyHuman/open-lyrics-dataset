@@ -103,5 +103,6 @@ As of the Project Milestone benchmark we have collected and cleaned the data, pe
 - April 2nd: Models created and training of the main model in progress.
 - April 9th: Training completed and models evaluated. Begin creating project video.
 - April 19th (Entire Project): *Can identify the problematic areas of lyrics using models
+
 *Flex Goal
 
