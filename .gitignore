@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# VSCode things
+.vscode/
+
 # Collection logging info
 data_collection/current.txt
 data_collection/logging.txt
