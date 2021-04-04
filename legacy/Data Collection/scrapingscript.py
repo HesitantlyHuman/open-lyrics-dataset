@@ -1,8 +1,3 @@
-#Automatic data scraping script
-#We are doing this in a standard script so that it can be run in the command line, and will take
-#less overhead than a jupyter notebook. For the explaination on how this script works and the process
-#by which we developed it, refer to the Project Data Aquisition jupyter notebook
-
 #Importing packages
 import random
 import requests

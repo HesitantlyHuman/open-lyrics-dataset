@@ -3,6 +3,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Collection logging info
+data_collection/current.txt
+data_collection/logging.txt
+
+# Collected data
+data/
+
 # C extensions
 *.so
 
