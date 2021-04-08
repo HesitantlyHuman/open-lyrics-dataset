@@ -1,0 +1,24 @@
+{
+    "genius" : {
+        "oauth" : {
+            "name" : "genius",
+            "base-url" : "https://api.genius.com",
+            "client-access-token" : "your-access-token-here"
+        },
+        "query" : {
+            "min-id" : 1,
+            "max-id" : 4227095
+        }
+    },
+    "spotify" : {
+        "name" : "spotify",
+        "oauth" : {
+            "name" : "spotify",
+            "client_id" : "your-id-here",
+            "client_secret" : "your-secret-here",
+            "authorize_url" : "https://accounts.spotify.com/authorize",
+            "access_token_url" : "https://accounts.spotify.com/api/token",
+            "base_url" : "https://api.spotify.com"
+        }
+    }
+}

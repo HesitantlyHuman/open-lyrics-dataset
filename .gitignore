@@ -6,10 +6,6 @@ __pycache__/
 # VSCode things
 .vscode/
 
-# Collection logging info and authentication information
-info/
-services.json
-
 # Collected data
 data/
 
