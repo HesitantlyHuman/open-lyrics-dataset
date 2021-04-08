@@ -1,5 +1,5 @@
 #Use argh for this guy, to make it really nice to use
-import argh
+#import argh
 import pandas as pd
 import csv
 import os
@@ -27,8 +27,6 @@ def scrape_genius(save_location, progress_file = './logging/progress.txt', start
 
         if num_collected > 8192:
             break
-
-    print(data_partitioner.list)
 
 #Argh stuff
 if __name__ == '__main__':
