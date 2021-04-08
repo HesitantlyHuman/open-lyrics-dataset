@@ -6,14 +6,11 @@ __pycache__/
 # VSCode things
 .vscode/
 
-# Collection logging info
-data_collection/progress.txt
+# Collection logging info and authentication information
+info/
 
 # Collected data
 data/
-
-# Authentication information
-info/services.json
 
 # C extensions
 *.so

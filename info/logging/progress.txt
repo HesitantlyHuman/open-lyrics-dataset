@@ -1,2 +1,0 @@
-service,collection_progress
-genius,1
