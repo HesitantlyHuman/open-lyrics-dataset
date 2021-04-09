@@ -3,7 +3,7 @@
         "oauth" : {
             "name" : "genius",
             "base-url" : "https://api.genius.com",
-            "client-access-token" : "your-access-token-here"
+            "client-access-token" : "qIcPSKG-IpOYMR0j-Y2NcuHVuGsbGHO3osa4b7BEJuFaBbZgDn26EKjl_whhxSjO"
         },
         "query" : {
             "min-id" : 1,

@@ -7,11 +7,12 @@ from bs4 import BeautifulSoup
 #Annoyingly, the configuration file default location needs to be changed depending on the scope from which you call the interface
 #TODO: make it not be that way!
 class GeniusInterface():
-    def __init__(self, index = 1, configuration_file = './info/services.json'):
+    def __init__(self, index = 1, configuration_file = './info/services.json', timeout = 50):
         with open(configuration_file) as json_file:
             genius_service_data = json.load(json_file)['genius']
 
         self.index = index
+        self.timeout = timeout
         self.token = genius_service_data['oauth']['client-access-token']
         self.base_url = genius_service_data['oauth']['base-url']
         self.min_index = genius_service_data['query']['min-id']
@@ -50,7 +51,7 @@ class GeniusInterface():
         #Data accessable only via the html
         if not song_path is None:
             url = 'https://genius.com' + song_path
-            song_page_soup = BeautifulSoup(httpx.get(url).text, 'html.parser')
+            song_page_soup = BeautifulSoup(httpx.get(url, timeout = self.timeout).text, 'html.parser')
             lyrics = song_page_soup.find('div', class_='lyrics').get_text()
             genres = try_dictionary_access(json.loads(song_page_soup.find('meta', itemprop='page_data')['content']), ['dmp_data_layer', 'page', 'genres'])
         else:
@@ -75,7 +76,7 @@ class GeniusInterface():
             'Authorization' : 'Bearer ' + self.token
         }
 
-        api_response = httpx.get(self.base_url + '/songs/' + str(index), headers = api_header)
+        api_response = httpx.get(self.base_url + '/songs/' + str(index), headers = api_header, timeout = self.timeout)
 
         if not api_response.status_code == httpx.codes.ok:
             if api_response.status_code == 404:
