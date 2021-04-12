@@ -1,2 +1,2 @@
 service,collection_progress
-genius,87
+genius,325

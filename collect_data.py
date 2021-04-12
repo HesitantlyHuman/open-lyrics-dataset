@@ -4,13 +4,14 @@ import pandas as pd
 import asyncio
 import csv
 import os
+
 from tqdm import tqdm
 
 from network.genius_interface import GeniusInterface
 from data_management.data_partitioner import DataPartitioner
+from collectors import collection_worker
 
-#Currently this is way too slow... we must configure it to use async requests :<
-def scrape_genius(save_location, progress_file = './logging/progress.txt', start_index = None):
+async def scrape_genius(save_location, n_workers = 5, progress_file = './logging/progress.txt', start_index = None):
 
     data_partitioner = DataPartitioner(save_location, partition_length = 10)
 
@@ -19,16 +20,20 @@ def scrape_genius(save_location, progress_file = './logging/progress.txt', start
 
     interface = GeniusInterface(start_index)
 
-    pbar = tqdm(interface, position = 0, leave = True, total = 100)
-    for num_collected, song in enumerate(pbar):
-        data_partitioner.append(song)
-        data_partitioner.update_index(interface.index)
+    workers = []
+    for worker_num in range(n_workers):
+        worker = asyncio.create_task(collection_worker(interface, data_partitioner))
 
-        pbar.update(1)
+    pbar = tqdm(total = 100, position = 0, leave = True)
+    while interface.has_next():
+        pbar.update(interface.index - pbar.n - start_index)
 
-        if num_collected > 100:
-            break
+    for worker in workers:
+        worker.cancel()
+    
+    await interface.close()
 
 #Argh stuff
 if __name__ == '__main__':
-    scrape_genius('./data/')
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(scrape_genius('./data/'))

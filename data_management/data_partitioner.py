@@ -89,7 +89,8 @@ class DataPartitioner():
         return index_dataframe['collection_progress']['genius']
         
     def update_index(self, index):
-        self.current_index = index
+        if index > self.current_index:
+            self.current_index = index
 
     def verify_directory(file_path):
         if not os.path.exists(file_path):
