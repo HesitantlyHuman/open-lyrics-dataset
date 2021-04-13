@@ -3,9 +3,9 @@
         "oauth" : {
             "name" : "genius",
             "base-url" : "https://api.genius.com",
-            "client-access-token" : "qIcPSKG-IpOYMR0j-Y2NcuHVuGsbGHO3osa4b7BEJuFaBbZgDn26EKjl_whhxSjO"
+            "client-access-token" : "your-token-here"
         },
-        "query" : {
+        "collection" : {
             "min-id" : 1,
             "max-id" : 4227095
         }

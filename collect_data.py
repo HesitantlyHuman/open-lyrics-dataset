@@ -9,29 +9,22 @@ from tqdm import tqdm
 
 from network.genius_interface import GeniusInterface
 from data_management.data_partitioner import DataPartitioner
-from collectors import collection_worker
+from collectors import GeniusCollector
 
-async def scrape_genius(save_location, n_workers = 5, progress_file = './logging/progress.txt', start_index = None):
+async def collect(collector, data_partitioner, progress_bar = None):
+    data = await next(collector)
+    data_partitioner.append(data)
 
-    data_partitioner = DataPartitioner(save_location, partition_length = 10)
+    if progress_bar is not None:
+        progress_bar.update(1)
 
-    if start_index is None:
-        start_index = data_partitioner.get_last_index()
-
-    interface = GeniusInterface(start_index)
-
-    workers = []
-    for worker_num in range(n_workers):
-        worker = asyncio.create_task(collection_worker(interface, data_partitioner))
-
-    pbar = tqdm(total = 100, position = 0, leave = True)
-    while interface.has_next():
-        pbar.update(interface.index - pbar.n - start_index)
-
-    for worker in workers:
-        worker.cancel()
-    
-    await interface.close()
+async def scrape_genius(save_location, requests_per_second = 1):
+    with DataPartitioner(save_location, partition_length = 1000) as data_partitioner:
+        async with GeniusCollector() as collector:
+            pbar = tqdm(total = collector.max_index, position = 0, leave = True)
+            while collector.has_next():
+                asyncio.create_task(collect(collector, data_partitioner, progress_bar = pbar))
+                await asyncio.sleep(1 / requests_per_second)
 
 #Argh stuff
 if __name__ == '__main__':

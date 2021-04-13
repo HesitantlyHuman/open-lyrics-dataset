@@ -5,7 +5,7 @@ import os
 #Configure so that the save frequency can be smaller than the partition lengths
 #This would additionally require loading the last csv and checking its length when we first create the partitioner
 class DataPartitioner():
-    def __init__(self, save_location = './data/', progress_file = './info/logging/progress.txt', partition_length = 8192):
+    def __init__(self, save_location = './data/', progress_file = './info/logging/progress.csv', partition_length = 8192):
         self.lyrics_location = os.path.join(save_location, 'lyrics/raw')
         self.meta_location = os.path.join(save_location, 'meta')
         self.progress_file = progress_file
@@ -27,7 +27,6 @@ class DataPartitioner():
         self.current_file_number = 0
 
         self.load_from_previous_if_exists(self.lyrics_location, self.meta_location, self.progress_file)
-        self.current_index = self.get_last_index()
 
     def append(self, incoming_data):
         #Grab the lyrics and id
@@ -79,19 +78,13 @@ class DataPartitioner():
 
         self.current_file_number = lyrics_number
 
-    def save_index(self, index_to_save):
-        index_dataframe = pd.read_csv(self.progress_file, index_col = 'service')
-        index_dataframe['collection_progress']['genius'] = index_to_save
-        index_dataframe.to_csv(self.progress_file)
-
-    def get_last_index(self):
-        index_dataframe = pd.read_csv(self.progress_file, index_col = 'service')
-        return index_dataframe['collection_progress']['genius']
-        
-    def update_index(self, index):
-        if index > self.current_index:
-            self.current_index = index
-
     def verify_directory(file_path):
         if not os.path.exists(file_path):
             os.makedirs(file_path)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type, value, traceback):
+        if len(self._temp_lyrics) > 0:
+            self.save_collected_items()
