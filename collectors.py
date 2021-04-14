@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import random
 
-from network.genius_interface import GeniusInterface
+from network import GeniusInterface
 
 class GeniusCollector():
     def __init__(self, id_file = './info/collection/genius_ids.csv', configuration_file = './info/services.json', interface = GeniusInterface()):
@@ -12,7 +12,7 @@ class GeniusCollector():
 
         self.id_file = id_file
 
-        self.indices = {}
+        self.indices = []
         self.interface = interface
         self.min_index = genius_collection_data['min-id']
         self.max_index = genius_collection_data['max-id']
@@ -26,15 +26,9 @@ class GeniusCollector():
 
     async def get_next_song(self):
         if len(self.indices) > 0:
-            next_song = None
-            while next_song is None:
-                next_song = await self.get_song(self.indices.pop(0))
-            return next_song
+            return await self.interface.get_song(self.indices.pop())
         else:
             raise StopIteration
-
-    async def get_song(self, index):
-        await self.interface.get_song(index)
 
     async def __next__(self):
         return await self.get_next_song()

@@ -3,11 +3,14 @@
         "oauth" : {
             "name" : "genius",
             "base-url" : "https://api.genius.com",
-            "client-access-token" : "your-token-here"
+            "client-access-token" : "e7YsWqhHUpgGHO2BCXOmVS2Hxdg0bI6dASdpCFn2pb2TgX6hWY0hg5jMIBl0o9Aq"
         },
         "collection" : {
             "min-id" : 1,
-            "max-id" : 4227095
+            "max-id" : 6703114
+        },
+        "html" : {
+            "cookie" : "_rapgenius_session=BAh7CToPc2Vzc2lvbl9pZEkiJWMwNGE5NzE3MGI1NzQ0MWJlZTQ0OTg1MTc3MjAzZTQwBjoGRUY6EF9jc3JmX3Rva2VuSSIxMFRRd0VEaWh3ZkdnUHd6WExyUjNZTGd5VGEyY1JNY3BFRlYydVZhWENFWT0GOwZGSSIVdXNlcl9jcmVkZW50aWFscwY7BlRJIgGAOWZmNGEzNDFkNGJlOTA2NzVkOWVhNDU5MGEwNWJlMThkMzQ3NzRjYmRhYjdlN2E4M2JlMjBkNzE0ZDQ4NTRmY2UxNTg3NWM0ZjZjNDlhODY1OWU4NmQ0ZTQ5ZDMzMTkxYjU2ZWMzYTRjZDUwYzk1ZmJhYjUwNjU0YThiNDhiZWMGOwZUSSIYdXNlcl9jcmVkZW50aWFsc19pZAY7BlRpA%2F0DzA%3D%3D--82d1e5084b69ceb05d6bcbac736844cc777ba1cf;"
         }
     },
     "spotify" : {

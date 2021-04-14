@@ -52,8 +52,6 @@ class DataPartitioner():
         meta_save_path = os.path.join(self.meta_location, self._meta_save_format.format(self.current_file_number))
         meta_to_save.to_csv(meta_save_path, index = False)
 
-        self.save_index(self.current_index)
-
     def load_from_previous_if_exists(self, lyrics_location, metadata_location, progress_file):
         lyric_regex_string = re.sub('\{.+\}', '[0-9]+', self._lyric_save_format)
         meta_regex_string = re.sub('\{.+\}', '[0-9]+', self._meta_save_format)
@@ -82,9 +80,10 @@ class DataPartitioner():
         if not os.path.exists(file_path):
             os.makedirs(file_path)
 
-    def __enter__(self):
+    async def __aenter__(self):
         return self
 
-    def __exit__(self, type, value, traceback):
+    async def __aexit__(self, type, value, traceback):
+        print('here!')
         if len(self._temp_lyrics) > 0:
             self.save_collected_items()
