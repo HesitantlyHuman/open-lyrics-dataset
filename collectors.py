@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import random
 
-from network import GeniusInterface
+from network import GeniusInterface, GeniusRetrievalFailure
 
 class GeniusCollector():
     def __init__(self, id_file = './info/collection/genius_ids.csv', configuration_file = './info/services.json', interface = GeniusInterface()):
@@ -22,11 +22,23 @@ class GeniusCollector():
         else:
             self.indices = [i for i in range(self.min_index, self.max_index)]
             random.shuffle(self.indices)
-            pd.DataFrame({'indices' : self.indices}).to_csv(self.id_file, index = False)
+            self.save()
+
+    def save(self):
+        pd.DataFrame({'indices' : self.indices}).to_csv(self.id_file, index = False)
 
     async def get_next_song(self):
         if len(self.indices) > 0:
-            return await self.interface.get_song(self.indices.pop())
+            selected_index = self.indices.pop()
+            try:
+                return await self.interface.get_song(selected_index)
+            except GeniusRetrievalFailure as e:
+                if str(e.status)[0] == '5':
+                    self.indices.append(selected_index)
+                elif e.status == 403 or e.status == 404:
+                    pass
+                else:
+                    raise e
         else:
             raise StopIteration
 
@@ -40,5 +52,5 @@ class GeniusCollector():
         return self
 
     async def __aexit__(self, type, value, traceback):
-        pd.DataFrame({'indices' : self.indices}).to_csv(self.id_file, index = False)
+        self.save()
         await self.interface.close()

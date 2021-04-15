@@ -21,7 +21,7 @@ async def collect_next(collector, data_partitioner, progress_bar = None):
         progress_bar.update(1)
 
 async def collection_loop(save_location, collector, requests_per_second = 5):
-    async with DataPartitioner(save_location, partition_length = 1000) as data_partitioner:
+    async with DataPartitioner(save_location, collector = collector) as data_partitioner:
         pbar = tqdm(total = collector.max_index, position = 0, leave = True)
         while collector.has_next():
             asyncio.create_task(collect_next(collector, data_partitioner, progress_bar = pbar))

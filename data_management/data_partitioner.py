@@ -5,7 +5,7 @@ import os
 #Configure so that the save frequency can be smaller than the partition lengths
 #This would additionally require loading the last csv and checking its length when we first create the partitioner
 class DataPartitioner():
-    def __init__(self, save_location = './data/', progress_file = './info/logging/progress.csv', partition_length = 8192):
+    def __init__(self, save_location = './data/', collector =  None, progress_file = './info/logging/progress.csv', partition_length = 8192):
         self.lyrics_location = os.path.join(save_location, 'lyrics/raw')
         self.meta_location = os.path.join(save_location, 'meta')
         self.progress_file = progress_file
@@ -28,6 +28,8 @@ class DataPartitioner():
 
         self.load_from_previous_if_exists(self.lyrics_location, self.meta_location, self.progress_file)
 
+        self.collector = collector
+
     def append(self, incoming_data):
         #Grab the lyrics and id
         lyric_info = {key: incoming_data[key] for key in incoming_data.keys() if key in self._lyrics_keys or key in self._all_keys}
@@ -42,6 +44,7 @@ class DataPartitioner():
             self._temp_lyrics = []
             self._temp_meta = []
             self.current_file_number += 1
+            self.collector.save()
 
     def save_collected_items(self):
         lyrics_to_save = pd.DataFrame(self._temp_lyrics)

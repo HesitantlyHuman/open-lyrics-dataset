@@ -39,8 +39,11 @@ class GeniusInterface():
         }
 
         async with self.session.get(url, timeout = self.timeout, headers = headers) as response:
-            html = await response.text()
-        song_page_soup = BeautifulSoup(html, 'lmxl')
+            response_message = await response.text()
+            if not response.status == 200:
+                raise GeniusRetrievalFailure(status = response.status, response_message = response_message)
+            
+        song_page_soup = BeautifulSoup(response_message, 'lxml')
 
         lyric_div = song_page_soup.find('div', {'class' : 'lyrics'})
         if lyric_div is not None:
@@ -68,11 +71,8 @@ class GeniusInterface():
 
         async with self.session.get(self.base_url + '/songs/' + str(index), headers = api_header, timeout = self.timeout) as response:
             if not response.status == 200:
-                if response.status == 404:
-                    return None
-                else:
-                    message = await response.text()
-                    raise RuntimeError(f'Encountered an unexpected network response of: {response.status} from Genius API with message: {message} when performing query of index: {index}')
+                message = await response.text()
+                raise GeniusRetrievalFailure(status = response.status, response_message = message, index = index)
             else:
                 api_response = await response.json()
 
@@ -97,3 +97,14 @@ class GeniusInterface():
 
     async def close(self):
         await self.session.close()
+
+class GeniusRetrievalFailure(Exception):
+    def __init__(self, status = None, response_message = None, index = None, message = ''):
+        super(GeniusRetrievalFailure, self).__init__()
+        self.status = status
+        self.response_message = response_message
+        self.index = index
+        self.message = f'Encountered an unexpected network response of: {self.status} from Genius API with message: {self.response_message} when performing query of index: {self.index}'
+
+    def __str__(self):
+        return self.message

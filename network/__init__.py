@@ -1,1 +1,1 @@
-from network.genius_interface import GeniusInterface
+from network.genius_interface import GeniusInterface, GeniusRetrievalFailure
