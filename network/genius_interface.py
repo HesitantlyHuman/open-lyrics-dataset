@@ -93,7 +93,26 @@ class GeniusInterface():
             'genius_url' : genius_url
         }
 
+        media_urls = GeniusInterface._retreive_media_urls(api_response, ['spotify', 'youtube', 'soundcloud'])
+        api_data.update(media_urls)
+
         return api_data
+
+    def _retreive_media_urls(genius_api_call, services):
+        services = [service.lower() for service in services]
+        urls = {service + '_url' : None for service in services}
+
+        media_objects = try_dictionary_access(genius_api_call, ['response', 'song', 'media'])
+        if not media_objects:
+            return urls
+        
+        for media_object in media_objects:
+            provider = try_dictionary_access(media_object, ['provider'])
+            if provider is not None:
+                if provider.lower() in services:
+                    urls.update({provider.lower() + '_url' : try_dictionary_access(media_object, ['url'])})
+        
+        return urls
 
     async def close(self):
         await self.session.close()

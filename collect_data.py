@@ -8,7 +8,7 @@ import os
 from tqdm import tqdm
 
 from network.genius_interface import GeniusInterface
-from data_management.data_partitioner import DataPartitioner
+from data_management import DataPartitioner
 from collectors import GeniusCollector
 
 async def collect_next(collector, data_partitioner, progress_bar = None):
@@ -20,7 +20,7 @@ async def collect_next(collector, data_partitioner, progress_bar = None):
     if progress_bar is not None:
         progress_bar.update(1)
 
-async def collection_loop(save_location, collector, requests_per_second = 5):
+async def collection_loop(save_location, collector, requests_per_second = 8):
     async with DataPartitioner(save_location, collector = collector) as data_partitioner:
         pbar = tqdm(total = collector.max_index, position = 0, leave = True)
         while collector.has_next():
