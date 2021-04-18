@@ -35,10 +35,14 @@ class GeniusCollector():
             except GeniusRetrievalFailure as e:
                 if str(e.status)[0] == '5':
                     self.indices.append(selected_index)
+                    return
                 elif e.status == 403 or e.status == 404:
-                    pass
+                    return
                 else:
                     raise e
+            except:
+                self.indices.append(selected_index)
+                raise e
         else:
             raise StopIteration
 
