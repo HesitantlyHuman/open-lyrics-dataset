@@ -6,6 +6,10 @@ __pycache__/
 # VSCode things
 .vscode/
 
+# Testing framework files
+spotify_interface_test.py
+youtube_interface_test.py
+
 # Collected data
 data/
 

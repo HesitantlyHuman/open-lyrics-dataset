@@ -1,6 +1,6 @@
 {
     "genius" : {
-        "oauth" : {
+        "auth" : {
             "name" : "genius",
             "base-url" : "https://api.genius.com",
             "client-access-token" : "x9Nh4WZLhto2_WvxjQ0YxojI_lBAK50vuhFMWpSBcyn7Kdihunho_tEnBu2MbKSi"
@@ -14,14 +14,21 @@
         }
     },
     "spotify" : {
-        "name" : "spotify",
-        "oauth" : {
+        "auth" : {
             "name" : "spotify",
-            "client_id" : "your-id-here",
-            "client_secret" : "your-secret-here",
+            "client_id" : "f8ed44dea3354f30b7e49042cfbe1dd1",
+            "client_secret" : "ecfe526f97074cbf99680e6a09ee58a8",
             "authorize_url" : "https://accounts.spotify.com/authorize",
             "access_token_url" : "https://accounts.spotify.com/api/token",
             "base_url" : "https://api.spotify.com"
+        }
+    },
+    "youtube" : {
+        "auth" : {
+
+        },
+        "collection" : {
+            
         }
     }
 }

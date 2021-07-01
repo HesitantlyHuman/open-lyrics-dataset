@@ -12,8 +12,8 @@ class GeniusInterface():
             genius_config_data = json.load(json_file)['genius']
 
         self.timeout = timeout
-        self.token = genius_config_data['oauth']['client-access-token']
-        self.base_url = genius_config_data['oauth']['base-url']
+        self.token = genius_config_data['auth']['client-access-token']
+        self.base_url = genius_config_data['auth']['base-url']
 
         self.cookie = genius_config_data['html']['cookie']
 

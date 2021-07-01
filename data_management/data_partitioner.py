@@ -87,6 +87,5 @@ class DataPartitioner():
         return self
 
     async def __aexit__(self, type, value, traceback):
-        print('here!')
         if len(self._temp_lyrics) > 0:
             self.save_collected_items()
