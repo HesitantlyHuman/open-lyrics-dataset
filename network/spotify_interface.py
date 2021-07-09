@@ -15,6 +15,9 @@ class SpotifyInterface():
 
         self.listens_endpoint = playcount_librespot_endpoint
 
+    async def search_by_id(self, spotify_song_id):
+        pass
+
     async def search_by_string(self, string):
         if self.token is None:
             self.token = await self._get_token(self.oauth_credentials)
