@@ -4,7 +4,7 @@ import json
 
 from bs4 import BeautifulSoup
 
-from utilities.utils import try_dictionary_access
+from utils import try_dictionary_access
 
 class GeniusInterface():
     def __init__(self, configuration_file = './info/services.json', timeout = 100):

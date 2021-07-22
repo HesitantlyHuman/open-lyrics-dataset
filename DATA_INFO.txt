@@ -1,0 +1,41 @@
+Data Desired:
+    General:
+        languages
+
+    Genius:
+        genius_url
+        genius_collection_date
+        title
+        lyrics
+        genius_genres
+        genius_id
+        genius_album_id
+        album
+        artist
+        release_date
+
+    Spotify:
+        spotify_collection_date
+        spotify_popularity
+        spotify_listens
+        spotify_artist_monthly_listeners
+        spotify_url
+        duration
+        explicit
+
+    Soundcloud:
+        soundcloud_collection_date
+        soundcloud_url
+        soundcloud_listens
+        soundcloud_likes
+        soundcloud_reposts
+        soundcloud_artist_followers
+        soundcloud_tags
+
+    Youtube:
+        youtube_collection_date
+        youtube_url
+        youtube_title
+        youtube_veiws
+        youtube_likes
+        youtube_dislikes

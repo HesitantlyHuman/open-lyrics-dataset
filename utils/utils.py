@@ -6,3 +6,6 @@ def try_dictionary_access(dictionary, keys):
         return dictionary
     except (TypeError, KeyError) as error:
         return None
+
+def noneless_dictionary_update(old, new):
+    return old.update( (k,v) for k,v in new.items() if v is not None)

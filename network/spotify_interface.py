@@ -12,11 +12,21 @@ class SpotifyInterface():
         self.token = None
 
         self.session = aiohttp.ClientSession()
-
         self.listens_endpoint = playcount_librespot_endpoint
 
     async def search_by_id(self, spotify_song_id):
-        pass
+        if self.token is None:
+            self.token = await self._get_token(self.oauth_credentials)
+
+        headers = {
+            'Authorization' : self.token
+        }
+        data = {
+        }
+
+        response = await self.session.get(f'https://api.spotify.com/v1/tracks/{spotify_song_id}', headers = headers, params = data)
+        content = await response.text()
+        return json.loads(content)
 
     async def search_by_string(self, string):
         if self.token is None:
@@ -47,7 +57,7 @@ class SpotifyInterface():
         response = await self.session.get(self.listens_endpoint + '/artistInfo?artistid=' + spotify_artist_id)
         response = await response.text()
         response = json.loads(response)
-        return response
+        return response['data']
 
     async def _get_token(self, oauth_dictionary):
         authorization_id = 'Basic ' + str(base64.b64encode(bytes(oauth_dictionary['client_id'] + ':' + oauth_dictionary['client_secret'],'utf-8')),'utf-8')

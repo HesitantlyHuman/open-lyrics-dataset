@@ -17,6 +17,7 @@ class YoutubeInterface():
         #Unimplemented
         pass
 
+    #Make this safe?
     async def get_video_data(self, video_url):
         response = await self.session.get(video_url)
         response = await response.text()
