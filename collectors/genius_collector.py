@@ -3,58 +3,56 @@ import pandas as pd
 import os
 import random
 
-from network import GeniusInterface, GeniusRetrievalFailure
+from network import GeniusInterface, genius_interface
+from utils import noneless_dictionary_update
 
 class GeniusCollector():
-    def __init__(self, id_file = './info/collection/genius_ids.csv', configuration_file = './info/services.json', interface = GeniusInterface()):
-        with open(configuration_file) as json_file:
-            genius_collection_data = json.load(json_file)['genius']['collection']
-
-        self.id_file = id_file
-
-        self.indices = []
+    def __init__(self, interface = GeniusInterface()):
         self.interface = interface
-        self.min_index = genius_collection_data['min-id']
-        self.max_index = genius_collection_data['max-id']
 
-        if os.path.exists(id_file):
-            self.indices = list(pd.read_csv(id_file)['indices'].values)
+    async def update(self, data_item):
+        genius_id = data_item.get('genius_id', None)
+
+        if not genius_id is None:
+            api_data = self._get_api_data(genius_id)
+            noneless_dictionary_update(data_item, api_data)
+
+            genius_url = data_item.get('genius_url', None)
+            if not genius_url is None:
+                html_data = self._get_html_data(genius_url)
+                noneless_dictionary_update(data_item, html_data)
         else:
-            self.indices = [i for i in range(self.min_index, self.max_index)]
-            random.shuffle(self.indices)
-            self.save()
+            return data_item
 
-    def save(self):
-        pd.DataFrame({'indices' : self.indices}).to_csv(self.id_file, index = False)
+    async def _get_html_data(self, genius_url):
+        song_html_data = await self.interface.get_html_data(genius_url)
 
-    async def get_next_song(self):
-        if len(self.indices) > 0:
-            selected_index = self.indices.pop()
-            try:
-                return await self.interface.get_song(selected_index)
-            except GeniusRetrievalFailure as e:
-                if str(e.status)[0] == '5':
-                    self.indices.append(selected_index)
-                    return
-                elif e.status == 403 or e.status == 404:
-                    return
-                else:
-                    raise e
-            except:
-                self.indices.append(selected_index)
-                raise e
-        else:
-            raise StopIteration
+        return song_html_data
 
-    async def __next__(self):
-        return await self.get_next_song()
-    
-    def has_next(self):
-        return len(self.indices) > 0
+    async def _get_api_data(self, genius_id):
+        song_api_data = await self.interface.get_api_data(genius_id)
 
-    async def __aenter__(self):
-        return self
+        media_urls = GeniusCollector._retreive_media_urls(song_api_data, ['spotify', 'youtube', 'soundcloud'])
 
-    async def __aexit__(self, type, value, traceback):
-        self.save()
-        await self.interface.close()
+        api_data = {
+            'genius_album_id' : song_api_data.get('album', {}).get('id', None),
+            'title' : song_api_data.get('title', None),
+            'album' : song_api_data.get('album', {}).get('name', None),
+            'artist' : song_api_data.get('primary_artist', {}).get('name', None),
+            'release_date' : song_api_data.get('release_date', None),
+            'genius_url' : song_api_data.get('url', None)
+        }
+        api_data.update(media_urls)
+
+        return api_data
+
+    def _retreive_media_urls(genius_api_call, services):
+        services = [service.lower() for service in services]
+        urls = {service + '_url' : None for service in services}
+
+        media_objects = genius_api_call.get('media', [])
+        for media_object in media_objects:
+            provider = media_object.get('provider', '')
+            if provider.lower() in services:
+                urls.update({provider.lower() + '_url' : media_object.get('url', None)})
+        return urls

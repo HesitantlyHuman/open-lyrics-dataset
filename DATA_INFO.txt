@@ -20,7 +20,8 @@ Data Desired:
         spotify_listens
         spotify_artist_monthly_listeners
         spotify_url
-        duration
+        spotify_id
+        duration_ms
         explicit
 
     Soundcloud:

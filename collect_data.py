@@ -1,5 +1,3 @@
-#Use argh for this guy, to make it really nice to use
-#import argh
 import pandas as pd
 import asyncio
 import csv
@@ -32,7 +30,6 @@ async def scrape(save_location, site):
         async with GeniusCollector() as collector:
             await collection_loop(save_location, collector)
 
-#Argh stuff
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     loop.run_until_complete(scrape('./data/', site = 'Genius'))

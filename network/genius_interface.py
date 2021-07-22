@@ -19,21 +19,7 @@ class GeniusInterface():
 
         self.session = aiohttp.ClientSession()
 
-    async def get_song(self, index):
-        '''Takes a Genius song id, and returns a songs lyrics and metadata as a python dictionary. Returns none if no song exists at that endpoint'''
-        song_item = await self.get_api_data(index)
-
-        if song_item is None:
-            return None
-
-        if not song_item['genius_url'] is None:
-            web_data = await self.get_html_data(song_item['genius_url'])
-            song_item.update(web_data)
-
-        return song_item
-
     async def get_html_data(self, url):
-
         headers = {
             'Cookie' : self.cookie
         }
@@ -75,44 +61,8 @@ class GeniusInterface():
                 raise GeniusRetrievalFailure(status = response.status, response_message = message, index = index)
             else:
                 api_response = await response.json()
-
-        title = try_dictionary_access(api_response, ['response', 'song', 'title'])
-        artist = try_dictionary_access(api_response, ['response', 'song', 'primary_artist', 'name'])
-        genius_url = try_dictionary_access(api_response, ['response', 'song', 'url'])
-        release_date = try_dictionary_access(api_response, ['response', 'song', 'release_date'])
-        album_id = try_dictionary_access(api_response, ['response', 'song', 'album', 'id'])
-        album_name = try_dictionary_access(api_response, ['response', 'song', 'album', 'name'])
-
-        api_data = {
-            'genius_id' : index,
-            'genius_album_id' : album_id,
-            'title' : title,
-            'album' : album_name,
-            'artist' : artist,
-            'release_date' : release_date,
-            'genius_url' : genius_url
-        }
-
-        media_urls = GeniusInterface._retreive_media_urls(api_response, ['spotify', 'youtube', 'soundcloud'])
-        api_data.update(media_urls)
-
-        return api_data
-
-    def _retreive_media_urls(genius_api_call, services):
-        services = [service.lower() for service in services]
-        urls = {service + '_url' : None for service in services}
-
-        media_objects = try_dictionary_access(genius_api_call, ['response', 'song', 'media'])
-        if not media_objects:
-            return urls
         
-        for media_object in media_objects:
-            provider = try_dictionary_access(media_object, ['provider'])
-            if provider is not None:
-                if provider.lower() in services:
-                    urls.update({provider.lower() + '_url' : try_dictionary_access(media_object, ['url'])})
-        
-        return urls
+        return api_response.get('response', {}).get('song', {})
 
     async def close(self):
         await self.session.close()
