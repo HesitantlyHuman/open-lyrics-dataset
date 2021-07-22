@@ -23,6 +23,6 @@ class YoutubeCollector():
             youtube_url = await self.interface.get_video_url_from_search(song_title, artist_name)
         
         youtube_data = await self.interface.get_video_data(youtube_url)
-        data_item = noneless_dictionary_update(data_item, youtube_data)
+        noneless_dictionary_update(data_item, youtube_data)
 
         return data_item

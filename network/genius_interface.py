@@ -14,7 +14,6 @@ class GeniusInterface():
         self.timeout = timeout
         self.token = genius_config_data['auth']['client-access-token']
         self.base_url = genius_config_data['auth']['base-url']
-
         self.cookie = genius_config_data['html']['cookie']
 
         self.session = aiohttp.ClientSession()

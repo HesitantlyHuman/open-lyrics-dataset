@@ -13,13 +13,13 @@ class SpotifyCollector():
 
     async def update_item(self, data_item):
         spotify_data = await self._get_spotify_data(data_item)
-        data_item = noneless_dictionary_update(data_item, spotify_data)
+        noneless_dictionary_update(data_item, spotify_data)
 
         listens_data = await self._get_listens_data(data_item)
-        data_item = noneless_dictionary_update(data_item, listens_data)
+        noneless_dictionary_update(data_item, listens_data)
 
         artist_data = await self._get_artist_data(data_item)
-        data_item = noneless_dictionary_update(data_item, artist_data)
+        noneless_dictionary_update(data_item, artist_data)
 
         data_item['spotify_collection_date'] = time.time()
         data_item['spotify_collection_date_human'] = datetime.now()
