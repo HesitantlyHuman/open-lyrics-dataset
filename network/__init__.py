@@ -1,3 +1,4 @@
-from network.genius_interface import GeniusInterface, GeniusRetrievalFailure
+from network.genius_interface import GeniusInterface
 from network.spotify_interface import SpotifyInterface
 from network.youtube_interface import YoutubeInterface
+from network.soundcloud_interface import SoundcloudInterface
