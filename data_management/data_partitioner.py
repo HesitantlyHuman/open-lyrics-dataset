@@ -83,9 +83,9 @@ class DataPartitioner():
         if not os.path.exists(file_path):
             os.makedirs(file_path)
 
-    async def __aenter__(self):
+    def __enter__(self):
         return self
 
-    async def __aexit__(self, type, value, traceback):
+    def __exit__(self, type, value, traceback):
         if len(self._temp_lyrics) > 0:
             self.save_collected_items()

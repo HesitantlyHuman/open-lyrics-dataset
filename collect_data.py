@@ -1,3 +1,4 @@
+from dispatch.collection_dispatcher import CollectionDispatcher
 import pandas as pd
 import asyncio
 import csv
@@ -9,27 +10,26 @@ from network.genius_interface import GeniusInterface
 from data_management import DataPartitioner
 from collectors import GeniusCollector
 
-async def collect_next(collector, data_partitioner, progress_bar = None):
-    data = await next(collector)
+class ProgressDataPartitioner():
+    def __init__(self, data_partitioner, progress_bar):
+        self.data_partitioner = data_partitioner
+        self.progress_bar = progress_bar
+    
+    def update(self, x):
+        self.data_partitioner.update(x)
+        self.progress_bar.update(1)
 
-    if data is not None:
-        data_partitioner.append(data)
-
-    if progress_bar is not None:
-        progress_bar.update(1)
-
-async def collection_loop(save_location, collector, requests_per_second = 8):
-    async with DataPartitioner(save_location, collector = collector) as data_partitioner:
-        pbar = tqdm(total = len(collector.indices), position = 0, leave = True)
-        while collector.has_next():
-            asyncio.create_task(collect_next(collector, data_partitioner, progress_bar = pbar))
-            await asyncio.sleep(1 / requests_per_second)
-
-async def scrape(save_location, site):
-    if site.lower() == 'genius':
-        async with GeniusCollector() as collector:
-            await collection_loop(save_location, collector)
+async def collect():
+    with DataPartitioner('./data/') as data_partitioner:
+        pbar = tqdm(total = 6703114)
+        partitioner = ProgressDataPartitioner(data_partitioner, pbar)
+        with CollectionDispatcher(partitioner) as dispatcher:
+            await dispatcher.start_generating_items()
+            await dispatcher.start_service('genius')
+            await dispatcher.start_service('spotify')
+            await dispatcher.start_service('youtube')
+            await dispatcher.start_service('soundcloud')
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(scrape('./data/', site = 'Genius'))
+    loop.run_until_complete(collect())

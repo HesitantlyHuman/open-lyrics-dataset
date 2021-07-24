@@ -36,7 +36,7 @@ class GeniusInterface():
 
         meta_container = song_page_soup.find('meta', {'itemprop' : 'page_data'})
         if meta_container is not None:
-            genres = try_dictionary_access(json.loads(meta_container['content']), ['dmp_data_layer', 'page', 'genres'])
+            genres = json.loads(meta_container['content']).get('dmp_data_layer', {}).get('page', {}).get('genres', None)
         else:
             genres = None
 

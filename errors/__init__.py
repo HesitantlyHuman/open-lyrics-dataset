@@ -1,0 +1,1 @@
+from errors.too_fast import TooFastError

@@ -21,8 +21,8 @@ class SpotifyCollector():
         artist_data = await self._get_artist_data(data_item)
         noneless_dictionary_update(data_item, artist_data)
 
-        data_item['spotify_collection_date'] = time.time()
-        data_item['spotify_collection_date_human'] = datetime.now()
+        data_item['spotify_collection_time'] = time.time()
+        data_item['spotify_collection_time_human'] = datetime.now()
 
         return data_item
 
