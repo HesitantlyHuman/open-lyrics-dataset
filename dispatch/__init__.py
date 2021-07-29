@@ -1,1 +1,1 @@
-from dispatch.collection_dispatcher import CollectionDispatcher
+from dispatch.dispatchers import ServiceDispatcher, GeniusCollector, DispatchPool

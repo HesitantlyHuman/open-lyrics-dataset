@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import random
 
-from network import GeniusInterface, genius_interface
+from network import GeniusInterface
 from utils import noneless_dictionary_update
 
 class GeniusCollector():
