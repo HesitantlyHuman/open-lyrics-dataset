@@ -25,10 +25,12 @@
     },
     "youtube" : {
         "auth" : {
-
         },
         "collection" : {
-            
+        }
+    },
+    "soundcloud" : {
+        "auth" : {
         }
     }
 }

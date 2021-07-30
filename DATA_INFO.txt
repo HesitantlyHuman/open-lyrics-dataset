@@ -27,11 +27,12 @@ Data Desired:
     Soundcloud:
         soundcloud_collection_date
         soundcloud_url
-        soundcloud_listens
+        soundcloud_playcount
+        soundcloud_comments
         soundcloud_likes
         soundcloud_reposts
         soundcloud_artist_followers
-        soundcloud_tags
+        soundcloud_genre_tags
 
     Youtube:
         youtube_collection_date

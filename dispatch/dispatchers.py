@@ -1,15 +1,10 @@
 import asyncio
-import dispatch
-from re import I
 import pandas as pd
 import random
 import json
 import os
 import time
 
-from collectors import *
-import collectors
-from data_management import DataPartitioner
 from errors import TooFastError
 
 class DispatchPool():
