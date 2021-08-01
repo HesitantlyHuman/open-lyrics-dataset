@@ -1,5 +1,6 @@
 #Maybe use the google search to find the videos?
 
+import re
 import aiohttp
 import asyncio
 import json
@@ -13,11 +14,20 @@ class YoutubeInterface():
 
         self.session = aiohttp.ClientSession()
 
-    async def get_video_url_from_search(self, song_title, artist_name):
-        #Unimplemented
-        pass
+        self.headers = youtube_config_data['collection']['google_headers']
 
-    #Make this safe?
+    async def get_urls_from_search(self, song_title, artist_name):
+        params = {
+            'client' : 'firefox-b-1-d',
+            'q' : song_title + ' ' + artist_name + ' youtube'
+        }
+
+        response = await self.session.get('https://www.google.com/search', headers = self.headers, params = params)
+        response = await response.text()
+
+        soup = BeautifulSoup(response, 'lxml')
+        return [result_block.find('a')['href'] for result_block in soup.find('div', {'id' : 'search'}).find_all('div', {'class' : 'g'})]
+
     async def get_video_data(self, video_url):
         response = await self.session.get(video_url)
         response = await response.text()

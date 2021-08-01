@@ -16,12 +16,14 @@ class SoundcloudInterface():
         }
 
         response = await self.session.get('https://soundcloud.com/search/sounds', params = params)
-        soup = BeautifulSoup(response.text)
-        return soup.find('div', {'id' : 'app'}).find_all('ul')[1].find('a')['href']
+        response = await response.text()
+        soup = BeautifulSoup(response, 'lxml')
+        return 'https://soundcoudl.com/' + soup.find('div', {'id' : 'app'}).find_all('ul')[1].find('a')['href']
 
     async def get_track_details(self, track_url):
         response = await self.session.get(track_url)
-        soup = BeautifulSoup(response.text)
+        response = await response.text()
+        soup = BeautifulSoup(response, 'lxml')
 
         return {
             'soundcloud_likes' : soup.find('meta', {'property' : 'soundcloud:like_count'})['content'],
@@ -29,5 +31,5 @@ class SoundcloudInterface():
             'soundcloud_comments' : soup.find('meta', {'property' : 'soundcloud:comments_count'})['content'],
             'soundcloud_genre_tags' : soup.find('meta', {'itemprop' : 'genre'})['content'],
             'soundcloud_playcount' : soup.find('meta', {'property' : 'soundcloud:play_count'})['content'],
-            'soundcloud_artist_followers' : response.text.split('"followers_count":')[1].split(',"followings_count":')[0]
+            'soundcloud_artist_followers' : response.split('"followers_count":')[1].split(',"followings_count":')[0]
         }
