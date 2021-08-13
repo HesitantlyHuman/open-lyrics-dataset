@@ -25,7 +25,7 @@ class AsyncRandomClient():
         return await self.session.post(url = url, **params)
 
     async def close(self):
-        pass
+        await self.session.close()
 
     def get_proxy(self):
         return None
