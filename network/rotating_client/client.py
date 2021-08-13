@@ -1,7 +1,7 @@
 import aiohttp
 
 class AsyncRandomClient():
-    def __init__(self):
+    def __init__(self, proxy_file = 'network/rotating_client/proxies.json', header_file = 'network/rotating_client/headers.json'):
         pass
 
     async def get(self, url, **kwargs):
