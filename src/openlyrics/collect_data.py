@@ -1,10 +1,10 @@
 from tqdm import tqdm
-from openlyrics.data_management import DataPartitioner
+from openlyrics.data import CSVPartitioner
 from openlyrics.collectors import *
 from openlyrics.dispatch import *
 
 def collect():
-    with DataPartitioner('./data/') as data_partitioner:
+    with CSVPartitioner('./data/') as data_partitioner:
         pbar = tqdm(total = 6703114)
 
         dispatch_workers = [

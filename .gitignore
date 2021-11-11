@@ -6,10 +6,6 @@ __pycache__/
 # VSCode things
 .vscode/
 
-# Collected data and collection metadata
-data/
-genius_ids.csv
-
 # C extensions
 *.so
 

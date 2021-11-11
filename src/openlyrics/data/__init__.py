@@ -1,0 +1,1 @@
+from openlyrics.data.partitioner import CSVPartitioner

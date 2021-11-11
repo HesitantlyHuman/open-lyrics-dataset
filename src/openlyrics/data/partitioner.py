@@ -4,14 +4,15 @@ import os
  
 #Configure so that the save frequency can be smaller than the partition lengths
 #This would additionally require loading the last csv and checking its length when we first create the partitioner
-class DataPartitioner():
+class CSVPartitioner():
     def __init__(self, save_location = './data/', collector =  None, progress_file = './info/logging/progress.csv', partition_length = 8192):
         self.lyrics_location = os.path.join(save_location, 'lyrics/raw')
         self.meta_location = os.path.join(save_location, 'meta')
         self.progress_file = progress_file
 
         for necessary_path in [self.lyrics_location, self.meta_location]:
-            DataPartitioner.verify_directory(necessary_path)
+            if not os.path.exists(necessary_path):
+                os.mkdir(necessary_path)
 
         self.partition_length = partition_length
         
@@ -78,10 +79,6 @@ class DataPartitioner():
         self._temp_meta = loaded_meta_dataframe.to_dict(orient = 'records')
 
         self.current_file_number = lyrics_number
-
-    def verify_directory(file_path):
-        if not os.path.exists(file_path):
-            os.makedirs(file_path)
 
     def __enter__(self):
         return self
