@@ -5,7 +5,7 @@ import json
 import os
 import time
 
-from errors import TooFastError
+from openlyrics.errors import TooFastError
 
 class DispatchPool():
     def __init__(self, dispatchers, data_partitioner, progress_bar = None):

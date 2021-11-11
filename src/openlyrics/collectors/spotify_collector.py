@@ -3,9 +3,8 @@ import os
 import time
 import datetime
 
-from network import SpotifyInterface
-
-from utils import noneless_dictionary_update
+from openlyrics.network import SpotifyInterface
+from openlyrics.utils import noneless_dictionary_update
 
 class SpotifyCollector():
     def __init__(self, configuration_file = './info/services.json', interface = SpotifyInterface()):

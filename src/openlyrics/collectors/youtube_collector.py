@@ -3,9 +3,8 @@ import os
 import time
 import datetime
 
-from network import YoutubeInterface
-
-from utils import noneless_dictionary_update
+from openlyrics.network import YoutubeInterface
+from openlyrics.utils import noneless_dictionary_update
 
 class YoutubeCollector():
     def __init__(self, configuration_file = './info/services.json', interface = YoutubeInterface()):

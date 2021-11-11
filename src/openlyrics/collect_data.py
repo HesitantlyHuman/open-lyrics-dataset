@@ -1,7 +1,7 @@
 from tqdm import tqdm
-from data_management import DataPartitioner
-from collectors import *
-from dispatch import *
+from openlyrics.data_management import DataPartitioner
+from openlyrics.collectors import *
+from openlyrics.dispatch import *
 
 def collect():
     with DataPartitioner('./data/') as data_partitioner:

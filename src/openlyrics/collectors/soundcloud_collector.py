@@ -3,9 +3,8 @@ import os
 import time
 import datetime
 
-from network import SoundcloudInterface
-
-from utils import noneless_dictionary_update
+from openlyrics.network import SoundcloudInterface
+from openlyrics.utils import noneless_dictionary_update
 
 class SoundcloudCollector():
     def __init__(self, configuration_file = './info/services.json', interface = SoundcloudInterface()):

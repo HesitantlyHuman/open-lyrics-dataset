@@ -3,8 +3,8 @@ import pandas as pd
 import os
 import random
 
-from network import GeniusInterface
-from utils import noneless_dictionary_update
+from openlyrics.network import GeniusInterface
+from openlyrics.utils import noneless_dictionary_update
 
 class GeniusCollector():
     def __init__(self, interface = GeniusInterface()):
