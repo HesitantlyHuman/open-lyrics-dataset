@@ -31,4 +31,7 @@ To perform a specific test, do something like this:
 pytest path/to/test
 ```
 Where the path is either a directory or `.py` file containing tests you would like to run.
+
+## Contributing
+
 If you are interested in contributing, please let me know, create issues or submit pull requests. I don't update this package very frequently, but I am on github daily.
