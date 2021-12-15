@@ -1,4 +1,0 @@
-from collectors.genius_collector import GeniusCollector
-from collectors.spotify_collector import SpotifyCollector
-from collectors.youtube_collector import YoutubeCollector
-from collectors.soundcloud_collector import SoundcloudCollector

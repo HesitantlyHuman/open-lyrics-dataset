@@ -1,0 +1,2 @@
+from openlyrics.services.genius.collector import GeniusCollector
+from openlyrics.services.genius.interface import GeniusInterface

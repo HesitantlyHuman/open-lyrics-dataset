@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import random
 
-from openlyrics.network import GeniusInterface
+from openlyrics.services.genius.interface import GeniusInterface
 from openlyrics.utils import noneless_dictionary_update
 
 class GeniusCollector():

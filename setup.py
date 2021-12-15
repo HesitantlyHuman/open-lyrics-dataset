@@ -6,7 +6,7 @@ if __name__ == '__main__':
         version = '0.0.8',
         package_dir = {'openlyrics' : 'src/openlyrics'},
         package_data = {
-            '' : ['*.json']
+            'openlyrics' : ['info/*.json']
         },
         include_package_data = True,
         packages = find_packages(

@@ -1,1 +1,1 @@
-from utils.utils import noneless_dictionary_update
+from openlyrics.utils.utils import noneless_dictionary_update
